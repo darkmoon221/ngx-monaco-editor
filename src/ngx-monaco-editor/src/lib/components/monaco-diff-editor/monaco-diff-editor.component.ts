@@ -12,6 +12,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
+import {EditorModel} from '../../model/model';
 
 import { MonacoEditorLoaderService } from '../../services/monaco-editor-loader.service';
 import { MonacoDiffEditorConstructionOptions, MonacoStandaloneDiffEditor } from '../../interfaces';
@@ -49,8 +50,8 @@ export class MonacoDiffEditorComponent implements OnInit, OnChanges, OnDestroy {
     container: HTMLDivElement;
     editor: MonacoStandaloneDiffEditor;
 
-    @Input() original: string;
-    @Input() modified: string;
+    @Input() original: EditorModel;
+    @Input() modified: EditorModel;
     @Input() options: MonacoDiffEditorConstructionOptions;
     @Output() init: EventEmitter< MonacoStandaloneDiffEditor> = new EventEmitter();
 
@@ -70,12 +71,7 @@ export class MonacoDiffEditorComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.editor && ((changes.code && !changes.code.firstChange) || (changes.modified && !changes.modified.firstChange))) {
-            const modified = monaco.editor.createModel(this.modified);
-            const original = monaco.editor.createModel(this.original);
-            this.editor.setModel({
-                original,
-                modified
-            });
+            this.updateEditorModel();
         }
         if (
             this.editor &&
@@ -101,13 +97,8 @@ export class MonacoDiffEditorComponent implements OnInit, OnChanges, OnDestroy {
         }
         this.editor = monaco.editor.createDiffEditor(this.container, opts);
 
-        const original = monaco.editor.createModel(this.original);
-        const modified = monaco.editor.createModel(this.modified);
+        this.updateEditorModel();
 
-        this.editor.setModel({
-            original,
-            modified
-        });
         this.editor.layout();
         this.init.emit(this.editor);
     }
@@ -117,4 +108,14 @@ export class MonacoDiffEditorComponent implements OnInit, OnChanges, OnDestroy {
             this.editor.dispose();
         }
     }
+
+    updateEditorModel() {
+        const original = monaco.editor.createModel(this.original.value, this.original?.language, this.original?.uri);
+        const modified = monaco.editor.createModel(this.modified.value, this.modified?.language, this.modified?.uri);
+
+        this.editor.setModel({
+            original,
+            modified
+        });
+  }
 }
