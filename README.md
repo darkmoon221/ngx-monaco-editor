@@ -2,9 +2,9 @@
 
 - 🚀 Try it out on [Stackblitz](https://stackblitz.com/edit/materia-ngx-monaco-editor-example)
 
-- 👉 See it in action with our [live demo](https://materiahq.github.io/ngx-monaco-editor)
+- 👉 See it in action with our [live demo](https://darkmoon221.github.io/ngx-monaco-editor)
 
-- 📖 Api reference available [here](https://materiahq.github.io/ngx-monaco-editor/api-reference)
+- 📖 Api reference available [here](https://darkmoon221.github.io/ngx-monaco-editor/api-reference)
 
 ### Angular versions
 
@@ -19,7 +19,7 @@ Check older versions support:
 
 Install from npm repository:
 ```
-npm install monaco-editor @materia-ui/ngx-monaco-editor --save
+npm install monaco-editor @kronscht/ngx-monaco-editor --save
  ```
  
 Add the glob to assets in angular.json (to make monaco-editor lib available to the app):
@@ -60,7 +60,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorModule } from '@kronscht/ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -83,6 +83,7 @@ Create Editor options in component.(eg: app.component.ts)
 
 ```typescript
 import { Component } from '@angular/core';
+import { EditorModel } from '@kronscht/ngx-monaco-editor';
 
 @Component({
   selector: 'app-root',
@@ -90,8 +91,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   editorOptions = {theme: 'vs-dark', language: 'javascript'};
-  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
-  originalCode: string = 'function x() { // TODO }';
+  code: EditorModel = { value: 'function x() {\nconsole.log("Hello world!");\n}', language: 'typescript' };
+  originalCode: EditorModel = { value: 'function x() { // TODO }', language: 'typescript' };
 }
 ```
 
@@ -129,7 +130,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorModule, MONACO_PATH } from '@kronscht/ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -175,7 +176,7 @@ export class AppComponent {
 If you need to retrieve `monaco-editor` instance for advance use cases (like defining a custom theme, add custom auto-complete support, etc...), you have to wait until monaco is loaded using our `MonacoEditorLoaderService`:
 
 ```typescript
-import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorLoaderService } from '@kronscht/ngx-monaco-editor';
 ...
 constructor(private monacoLoaderService: MonacoEditorLoaderService) {
       this.monacoLoaderService.isMonacoLoaded$.pipe(

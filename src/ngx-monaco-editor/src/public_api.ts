@@ -7,3 +7,4 @@ export * from './lib/interfaces';
 export * from './lib/components/monaco-editor/monaco-editor.component';
 export * from './lib/components/monaco-diff-editor/monaco-diff-editor.component';
 export * from './lib/monaco-editor.module';
+export * from './lib/model/model';

@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
-import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorModule, MONACO_PATH } from '@kronscht/ngx-monaco-editor';
 
 @NgModule({
   declarations: [

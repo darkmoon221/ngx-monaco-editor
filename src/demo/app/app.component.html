@@ -74,11 +74,32 @@
     <ngx-monaco-diff-editor
       fxFlex
       [options]="mergeOptions({ language:'sql', renderSideBySide: false })"
-      [original]="sqlRequest"
-      [modified]="modifiedSqlRequest"
+      [original]="sqlRequestModel"
+      [modified]="modifiedSqlRequestModel"
     >
     </ngx-monaco-diff-editor>
   </mat-card>
+
+  <mat-divider></mat-divider>
+  <h2 class="mat-headline">Diffs Editor Example - Dynamic language</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Languages</mat-label>
+      <mat-select [(value)]="selectedLanguage">
+        <mat-option *ngFor="let language of languages" [value]="language" (onSelectionChange)="languageChanged($event)">
+          {{language}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  <mat-card style="height: 300px">
+    <ngx-monaco-diff-editor
+      fxFlex
+      [options]="mergeOptions({ renderSideBySide: true })"
+      [original]="originalModel"
+      [modified]="modifiedModel"
+    >
+    </ngx-monaco-diff-editor>
+  </mat-card>
+
   <mat-divider></mat-divider>
   <h2 class="mat-headline">Reactive Form Example</h2>
   <div fxLayout="column">
